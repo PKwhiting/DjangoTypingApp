@@ -1,0 +1,38 @@
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/bebasneue/v2/JTUSjIg69CK48gW7PXooxW4.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Serif Pro';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/sourceserifpro/v10/neIXzD-0qpwxpaWvjeD0X88SAOeasd8chSs.ttf) format('truetype');
+}
+body {
+  background-color: #F4FFFD;
+  margin: 0;
+}
+main {
+  width: 100%;
+}
+.header {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 3rem;
+  text-align: center;
+  background-color: #ED254E;
+}
+.mainblock {
+  background-color: #F9DC5C;
+  font-family: 'Source Serif Pro', serif;
+  font-size: 2rem;
+  text-align: center;
+  padding: 3rem 0.5rem 3rem 0.5rem;
+}
+#input {
+  font-size: 3rem;
+  font-family: 'Source Serif Pro', serif;
+}
