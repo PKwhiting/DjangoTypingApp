@@ -16,23 +16,44 @@ body {
   background-color: #F4FFFD;
   margin: 0;
 }
-main {
-  width: 100%;
-}
 .header {
   font-family: 'Bebas Neue', cursive;
   font-size: 3rem;
   text-align: center;
   background-color: #ED254E;
 }
+.header h1 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
 .mainblock {
   background-color: #F9DC5C;
   font-family: 'Source Serif Pro', serif;
-  font-size: 2rem;
+  font-size: 1.7rem;
   text-align: center;
   padding: 3rem 0.5rem 3rem 0.5rem;
 }
 #input {
   font-size: 3rem;
   font-family: 'Source Serif Pro', serif;
+}
+.typingtext {
+  font-family: 'Source Serif Pro', serif;
+  font-size: 2rem;
+}
+.stats {
+  font-family: 'Source Serif Pro', serif;
+  background-color: #465362;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-around;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+.item {
+  font-size: 1.7rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  color: #F4FFFD;
 }
