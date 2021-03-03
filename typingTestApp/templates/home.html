@@ -23,7 +23,7 @@
         </div> -->
         <div class="mainblock">
             <div class="typingtext">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit possimus tempore earum temporibus reiciendis minima praesentium, blanditiis odit, laudantium inventore odio. Rerum dolorem similique molestiae laborum velit ut quo incidunt.</p>
+                <p id="test">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit possimus tempore earum temporibus reiciendis minima praesentium, blanditiis odit, laudantium inventore odio. Rerum dolorem similique molestiae laborum velit ut quo incidunt.</p>
             </div>
             <textarea id="input" cols="30" rows="1"></textarea></br>
             <p><button type="button" class="button" onclick="startTest()">Start</button></p>
@@ -32,6 +32,10 @@
                     // Define start time and clear text field.
                     var startTime = new Date().getTime();
                     document.getElementById("input").value = '';
+                    document.getElementById("accuracy").innerHTML = "Waiting...";
+                    
+                    // Counts the number of correct words that have been typed.
+                    var correctWords = 0;
 
                     // Update accuracy, time passed, and WPM each second.
                     var update = setInterval(function() {
@@ -52,12 +56,33 @@
                         // Update word count.
                         var wordCount = inputString.split(' ').length;
         
-                        //Update WPM (words per minute).
+                        // Update WPM (words per minute).
                         var WPM = document.getElementById("wpm").innerHTML = Math.round(wordCount  / (timePassed / 60)) + " WPM";
 
                         if (timePassed > 9) {
                             clearInterval(update);
-                            window.alert("Congratualations! You typed at a speed of " + WPM + ".");
+
+                            // Update accuracy. 
+                            var missedWords = []
+                            var testWordArray = document.getElementById("test").innerHTML.split(' ');
+                        
+                            if (wordCount > 1) {
+                                var inputWordArray = inputString.split(' ');
+                                for (i = 0; i < (wordCount + 1); i++)
+                                    if (testWordArray[i] == inputWordArray[i]) {
+                                        correctWords++;
+                                    }
+                                    else {
+                                        missedWords.push(testWordArray[i]);
+                                    }
+                            }
+
+                            missedWords.pop();
+                            
+                            var accuracy = Math.round(100 * (correctWords / wordCount));
+                            document.getElementById("accuracy").innerHTML = accuracy + "%";
+
+                            window.alert("Congratulations! You typed at a speed of " + WPM + " with an accuracy of " + accuracy + "%. You missed the following words: " + missedWords);
                         }
 
                     }, 1000);
@@ -71,7 +96,7 @@
                 </div>
                 <div class="item">
                     <h2>Accuracy</h2>
-                    <p>-- %</p>
+                    <p id="accuracy">-- %</p>
                 </div>
                 <div class="item">
                     <h2>Time</h2>
