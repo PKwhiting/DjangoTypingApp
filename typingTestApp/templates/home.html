@@ -12,26 +12,99 @@
         <div class="header">
             <h1>Django Typing App</h1>
         </div>
+        <!-- <div>
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="">Highscores</a></li>
+                <li><a href="">Import Test</a></li>
+                <li style="float: right;"><a href="">About</a></li>
+                <li style="float: right;"><a href="">Contact</a></li>
+            </ul>
+        </div> -->
         <div class="mainblock">
-            <form>
-                <label for="input">Type Here</label><br>
-                <input type="text" id="input" name="input">
-            </form>
             <div class="typingtext">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit possimus tempore earum temporibus reiciendis minima praesentium, blanditiis odit, laudantium inventore odio. Rerum dolorem similique molestiae laborum velit ut quo incidunt.</p>
+                <p id="test">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit possimus tempore earum temporibus reiciendis minima praesentium, blanditiis odit, laudantium inventore odio. Rerum dolorem similique molestiae laborum velit ut quo incidunt.</p>
             </div>
+            <textarea id="input" cols="30" rows="1"></textarea></br>
+            <p><button type="button" class="button" onclick="startTest()">Start</button></p>
+            <script>
+                function startTest() {
+                    // Define start time and clear text field.
+                    var startTime = new Date().getTime();
+                    document.getElementById("input").value = '';
+                    document.getElementById("accuracy").innerHTML = "Waiting...";
+                    
+                    // Counts the number of correct words that have been typed.
+                    var correctWords = 0;
+
+                    // Update accuracy, time passed, and WPM each second.
+                    var update = setInterval(function() {
+
+                        var currentTime = new Date().getTime();
+                        inputString = document.getElementById("input").value;
+
+                        /* Exclude start and end white-space, double spaces, and newlines respectively.
+                        Code courtesy of https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-6.php. */
+                        inputString = inputString.replace(/(^\s*)|(\s*$)/gi,"");
+                        inputString = inputString.replace(/[ ]{2,}/gi," ");
+                        inputString = inputString.replace(/\n /,"\n");
+
+                        // Update timer.
+                        var timePassed = Math.floor((currentTime - startTime) / 1000);
+                        document.getElementById("time").innerHTML = (60 - timePassed) + "s";
+
+                        // Update word count.
+                        var wordCount = inputString.split(' ').length;
+        
+                        // Update WPM (words per minute).
+                        var WPM = document.getElementById("wpm").innerHTML = Math.round(wordCount  / (timePassed / 60)) + " WPM";
+
+                        if (timePassed > 9) {
+                            clearInterval(update);
+
+                            // Update accuracy. 
+                            var missedWords = []
+                            var testWordArray = document.getElementById("test").innerHTML.split(' ');
+                        
+                            if (wordCount > 1) {
+                                var inputWordArray = inputString.split(' ');
+                                for (i = 0; i < (wordCount + 1); i++)
+                                    if (testWordArray[i] == inputWordArray[i]) {
+                                        correctWords++;
+                                    }
+                                    else {
+                                        missedWords.push(testWordArray[i]);
+                                    }
+                            }
+
+                            missedWords.pop();
+                            
+                            var accuracy = Math.round(100 * (correctWords / wordCount));
+                            document.getElementById("accuracy").innerHTML = accuracy + "%";
+
+                            window.alert("Congratulations! You typed at a speed of " + WPM + " with an accuracy of " + accuracy + "%. You missed the following words: " + missedWords);
+                        }
+
+                    }, 1000);
+
+                }
+            </script>
             <div class="stats">
                 <div class="item">
                     <h2>Speed</h2>
-                    <p>50WPM</p>
+                    <p id="wpm">-- WPM</p>
                 </div>
                 <div class="item">
                     <h2>Accuracy</h2>
-                    <p>90%</p>
+                    <p id="accuracy">-- %</p>
                 </div>
-                
+                <div class="item">
+                    <h2>Time</h2>
+                    <p id="time">60s</p>
+                </div>
             </div>
         </div>
     </main>
+    
 </body>
 </html>
