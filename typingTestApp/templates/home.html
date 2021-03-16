@@ -11,6 +11,7 @@
     <main>
         <div class="header">
             <h1>Django Typing App</h1>
+            <h2>High Score: <span id="highscore"></span>WPM</h2>
         </div>
         <!-- <div>
             <ul>
@@ -57,7 +58,19 @@
                         var wordCount = inputString.split(' ').length;
         
                         // Update WPM (words per minute).
-                        var WPM = document.getElementById("wpm").innerHTML = Math.round(wordCount  / (timePassed / 60)) + " WPM";
+
+                        var WPM = Math.round(wordCount  / (timePassed / 60));
+                        document.getElementById("wpm").innerHTML = WPM + "WPM";
+
+                        if(localStorage.getItem("highScore") === null){
+                            localStorage.setItem("highScore",WPM);
+                            console.log('tacos');
+                        }
+                        else if(WPM > localStorage.hasOwnProperty("highScore")) {
+                            localStorage.setItem("highScore",WPM);
+                            document.getElementById("highscore").innerHTML = localStorage.getItem("highScore");
+                        }
+
 
                         if (timePassed > 9) {
                             clearInterval(update);
