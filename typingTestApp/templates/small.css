@@ -26,12 +26,16 @@ body {
   margin-top: 0;
   margin-bottom: 0;
 }
+.header h2 {
+  margin: 0;
+  font-size: large;
+}
 .mainblock {
   background-color: #F9DC5C;
   font-family: 'Source Serif Pro', serif;
   font-size: 1.7rem;
   text-align: center;
-  padding: 1rem 0.5rem 3rem 0.5rem;
+  padding: 0rem 0.5rem 3rem 0.5rem;
 }
 #input {
   font-size: 3rem;
