@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Django Typing Speed App">
-    <title>Tpying Speed Calculator</title>
+    <title>Typing Speed Calculator</title>
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/small.css">
 </head>
 <body>
@@ -13,21 +13,44 @@
             <h1>Django Typing App</h1>
             <h2>High Score: <span id="highscore"></span>WPM</h2>
         </div>
-        <!-- <div>
-            <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">Highscores</a></li>
-                <li><a href="">Import Test</a></li>
-                <li style="float: right;"><a href="">About</a></li>
-                <li style="float: right;"><a href="">Contact</a></li>
-            </ul>
-        </div> -->
         <div class="mainblock">
             <div class="typingtext">
                 <p id="test">{{text}}</p>
             </div>
             <textarea id="input" cols="30" rows="1" onclick="startTest()"></textarea></br>
-            <!-- <p><button type="button" class="button" onclick="startTest()">Start</button></p> -->
+            <!-- <script>
+                var ft = document.querySelector("#test");
+                var tt = document.querySelector("#input");
+                ft.innerHTML = document.getElementById("test").innerHTML;
+
+                // Update underlined words upon each press of the spacebar.
+                document.body.onkeyup = function(e) {
+                    if (e.keyCode == 32) {
+                        fileText = ft.innerHTML; 
+                        testText = tt.innerHTML;
+                        var fileWords = fileText.split(/\s+/);
+                        var testWords = testText.split(/\s+/);
+                        var count = 0;
+                        ft.innerHTML = fileWords.map(function (fileWord) {
+                            if (testWords.length > count) 
+                            {
+                                var testWord = testWords[count];
+                                testWord = testWord.replace(/&nbsp;/gi, "");
+                                var correct = testWord == fileWord;
+                                var className = correct ? "correct" : "misspelled";
+                                var title = correct ? "Correct spelling" : "Misspelled";
+                                count++;
+                                return `<span class="${className}">${fileWord}</span>`;
+                            }
+                            else 
+                            {
+                                return fileWord;
+                            }
+                        })
+                        .join(" ");
+                    }
+                };
+            </script> -->
             <script>
                 function startTest() {
                     // Define start time and clear text field.
@@ -58,27 +81,27 @@
                         var wordCount = inputString.split(' ').length;
         
                         // Update WPM (words per minute).
-
                         var WPM = Math.round(wordCount  / (timePassed / 60));
                         document.getElementById("wpm").innerHTML = WPM + "WPM";
 
-                        if(localStorage.getItem("highScore") === null){
+                        if (localStorage.getItem("highScore") === null){
                             localStorage.setItem("highScore",WPM);
                             console.log('tacos');
                         }
-                        else if(WPM > localStorage.hasOwnProperty("highScore")) {
+                        else if (WPM > localStorage.hasOwnProperty("highScore")) {
                             localStorage.setItem("highScore",WPM);
                             document.getElementById("highscore").innerHTML = localStorage.getItem("highScore");
                         }
 
-
+                        // Check for the amount of time that has passed.
                         if (timePassed > 9) {
                             clearInterval(update);
 
                             // Update accuracy. 
                             var missedWords = []
                             var testWordArray = document.getElementById("test").innerHTML.split(' ');
-                        
+                            
+                            // Tally the number of correct words and add missed words to an array.
                             if (wordCount > 1) {
                                 var inputWordArray = inputString.split(' ');
                                 for (i = 0; i < (wordCount + 1); i++)
@@ -92,6 +115,7 @@
 
                             missedWords.pop();
                             
+                            // Calculate and display the accuracy.
                             var accuracy = Math.round(100 * (correctWords / wordCount));
                             document.getElementById("accuracy").innerHTML = accuracy + "%";
 
@@ -116,6 +140,9 @@
                     <p id="time">60s</p>
                 </div>
             </div>
+        </div>
+        <div>
+            <p id="debug">Debug</p>
         </div>
     </main>
     
