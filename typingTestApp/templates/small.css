@@ -61,6 +61,14 @@ body {
   padding-right: 2rem;
   color: #F4FFFD;
 }
+
 #test {
   font-size: 1.5rem;
 }
+#test .correct {
+  border-bottom: 2px solid green;
+}
+#test .misspelled {
+  border-bottom: 2px solid red;
+}
+
