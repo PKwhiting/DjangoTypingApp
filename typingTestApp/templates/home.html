@@ -18,7 +18,7 @@
                 <p id="test">{{text}}</p>
             </div>
             <textarea id="input" cols="30" rows="1" onclick="startTest()"></textarea></br>
-            <!-- <script>
+            <script>
                 var ft = document.querySelector("#test");
                 var tt = document.querySelector("#input");
                 ft.innerHTML = document.getElementById("test").innerHTML;
@@ -34,6 +34,7 @@
                         ft.innerHTML = fileWords.map(function (fileWord) {
                             if (testWords.length > count) 
                             {
+                                console.log(count);
                                 var testWord = testWords[count];
                                 testWord = testWord.replace(/&nbsp;/gi, "");
                                 var correct = testWord == fileWord;
@@ -50,7 +51,7 @@
                         .join(" ");
                     }
                 };
-            </script> -->
+            </script>
             <script>
                 function startTest() {
                     // Define start time and clear text field.

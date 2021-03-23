@@ -61,41 +61,6 @@ body {
   padding-right: 2rem;
   color: #F4FFFD;
 }
-.button {
-  font-family: 'Source Serif Pro', serif;
-  background-color: #ED254E;
+#test {
   font-size: 1.5rem;
-  padding: 0.5rem 2rem;
 }
-
-ul {
-  list-style-type: none;
-  background-color: #f7b02b;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-li {
-  float: left;
-}
-li a {
-  font-family: 'Source Serif Pro', serif;
-  text-align: center;
-  font-size: 1.25rem;
-  color: black;
-  text-decoration: none;
-  display: block;
-  padding: 1rem 1rem;
-}
-li a:hover {
-  background-color: #b98420;
-}
-
-#test .correct {
-  border-bottom: 2px solid green;
-}
-
-#test .misspelled {
-  border-bottom: 2px solid red;
-}
-
