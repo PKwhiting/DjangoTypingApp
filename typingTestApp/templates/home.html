@@ -10,142 +10,148 @@
 <body>
     <main>
         <div class="header">
-            <h1>Django Typing App</h1>
+            <h1>Typing Test</h1>
             <h2>High Score: <span id="highscore"></span>WPM</h2>
         </div>
         <div class="mainblock">
-            <div class="typingtext">
-                <div id="test">{{text}}</div>
-            </div>
-            <div id="input" cols="30" rows="1" onclick="startTest()" contenteditable></div></br>
-            <script>
-                var ft = document.querySelector("#test");
-                var tt = document.querySelector("#input");
-                ft.innerHTML = document.getElementById("test").innerHTML;
-
-                fileText = document.getElementById("test").innerHTML;
-                var fileWords = fileText.split(/\s+/);
-
-                // Update underlined words upon each press of the spacebar.
-                document.body.onkeyup = function(e) {
-                    if (e.keyCode == 32) {
-                        testText = tt.innerText;
-                        console.log("Test Text: " + testText);
-                        console.log("File Words: " + fileWords);
-                        var testWords = testText.split(/\s+/);
-                        console.log("Test Words: " + testWords);
-                        var count = 0;
-                        ft.innerHTML = fileWords.map(function (fileWord) {
-                            if (testWords.length > count) 
-                            {
-                                console.log("Count: " + count);
-                                console.log("Fileword: " + fileWord);
-                                var testWord = testWords[count];
-                                testWord = testWord.replace(/&nbsp;/gi, "");
-                                console.log("Test Word: " + testWord);
-                                var correct = testWord == fileWord;
-                                var className = correct ? "correct" : "misspelled";
-                                count += 1;
-                                return `<span class='${className}'>${fileWord}</span>`;
-                            }
-                            else 
-                            {
-                                return fileWord;
-                            }
-                        })
-                        .join(" ");
-                    }
-                };
-            </script>
-            <script>
-                function startTest() {
-                    // Define start time and clear text field.
-                    var startTime = new Date().getTime();
-                    document.getElementById("input").value = '';
-                    document.getElementById("accuracy").innerHTML = "Waiting...";
-                    
-                    // Counts the number of correct words that have been typed.
-                    var correctWords = 0;
-
-                    // Update accuracy, time passed, and WPM each second.
-                    var update = setInterval(function() {
-
-                        var currentTime = new Date().getTime();
-                        inputString = document.getElementById("input").value;
-
-                        /* Exclude start and end white-space, double spaces, and newlines respectively.
-                        Code courtesy of https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-6.php. */
-                        inputString = inputString.replace(/(^\s*)|(\s*$)/gi,"");
-                        inputString = inputString.replace(/[ ]{2,}/gi," ");
-                        inputString = inputString.replace(/\n /,"\n");
-
-                        // Update timer.
-                        var timePassed = Math.floor((currentTime - startTime) / 1000);
-                        document.getElementById("time").innerHTML = (60 - timePassed) + "s";
-
-                        // Update word count.
-                        var wordCount = inputString.split(' ').length;
-        
-                        // Update WPM (words per minute).
-                        var WPM = Math.round(wordCount  / (timePassed / 60));
-                        document.getElementById("wpm").innerHTML = WPM + "WPM";
-
-                        if (localStorage.getItem("highScore") === null){
-                            localStorage.setItem("highScore",WPM);
-                            console.log('tacos');
-                        }
-                        else if (WPM > localStorage.hasOwnProperty("highScore")) {
-                            localStorage.setItem("highScore",WPM);
-                            document.getElementById("highscore").innerHTML = localStorage.getItem("highScore");
-                        }
-
-                        // Check for the amount of time that has passed.
-                        if (timePassed > 9) {
-                            clearInterval(update);
-
-                            // Update accuracy. 
-                            var missedWords = []
-                            var testWordArray = document.getElementById("test").innerHTML.split(' ');
-                            
-                            // Tally the number of correct words and add missed words to an array.
-                            if (wordCount > 1) {
-                                var inputWordArray = inputString.split(' ');
-                                for (i = 0; i < (wordCount + 1); i++)
-                                    if (testWordArray[i] == inputWordArray[i]) {
-                                        correctWords++;
-                                    }
-                                    else {
-                                        missedWords.push(testWordArray[i]);
-                                    }
-                            }
-
-                            missedWords.pop();
-                            
-                            // Calculate and display the accuracy.
-                            var accuracy = Math.round(100 * (correctWords / wordCount));
-                            document.getElementById("accuracy").innerHTML = accuracy + "%";
-
-                            window.alert("Congratulations! You typed at a speed of " + WPM + " with an accuracy of " + accuracy + "%. You missed the following words: " + missedWords);
-                        }
-
-                    }, 1000);
-
-                }
-            </script>
             <div class="stats">
                 <div class="item">
                     <h2>Speed</h2>
                     <p id="wpm">-- WPM</p>
-                </div>
+                </div><br>
                 <div class="item">
                     <h2>Accuracy</h2>
                     <p id="accuracy">-- %</p>
-                </div>
+                </div><br>
                 <div class="item">
                     <h2>Time</h2>
                     <p id="time">60s</p>
                 </div>
             </div>
+            <div id="stuff">
+                <div class="typingtext">
+                    <div id="test">{{text}}</div>
+                </div>
+                <div id="input" cols="30" rows="1" onclick="startTest()" contenteditable></div></br>
+                <script>
+                    var ft = document.querySelector("#test");
+                    var tt = document.querySelector("#input");
+                    ft.innerHTML = document.getElementById("test").innerHTML;
+
+                    var fileText = document.getElementById("test").innerHTML;
+                    var fileWords = fileText.split(/\s+/);
+
+                    // Update underlined words upon each press of the spacebar.
+                    document.body.onkeyup = function(e) {
+                        if (e.keyCode == 32) {
+                            testText = tt.innerHTML;
+                            var testWords = testText.split(/\s+/);
+                            var count = 0;
+                            ft.innerHTML = fileWords.map(function (fileWord) {
+                                if (testWords.length > count) 
+                                {
+                                    console.log("Count: " + count);
+                                    console.log("Fileword: " + fileWord);
+                                    var testWord = testWords[count];
+                                    testWord = testWord.replace(/&nbsp;/gi, "");
+                                    console.log("Test Word: " + testWord);
+                                    var correct = testWord == fileWord;
+                                    var className = correct ? "correct" : "misspelled";
+                                    count += 1;
+                                    return `<span class='${className}'>${fileWord}</span>`;
+                                }
+                                else 
+                                {
+                                    return fileWord;
+                                }
+                            })
+                            .join(" ");
+                        }
+                    };
+                </script>
+                <script>
+                    function startTest() {
+                        // Define start time and clear text field.
+                        var startTime = new Date().getTime();
+                        document.getElementById("input").value = '';
+                        document.getElementById("accuracy").innerHTML = "Waiting...";
+                        
+                        // Counts the number of correct words that have been typed.
+                        var correctWords = 0;
+
+                        // Update accuracy, time passed, and WPM each second.
+                        var update = setInterval(function() {
+
+                            var currentTime = new Date().getTime();
+                            inputString = document.getElementById("input").innerHTML;
+
+                            /* Exclude start and end white-space, double spaces, and newlines respectively.
+                            Code courtesy of https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-6.php. */
+                            inputString = inputString.replace(/(^\s*)|(\s*$)/gi,"");
+                            inputString = inputString.replace(/[ ]{2,}/gi," ");
+                            inputString = inputString.replace(/\n /,"\n");
+
+                            // Update timer.
+                            var timePassed = Math.floor((currentTime - startTime) / 1000);
+                            document.getElementById("time").innerHTML = (60 - timePassed) + "s";
+
+                            // Update word count.
+                            var wordCount = inputString.split(' ').length;
+                            console.log("words" + wordCount);
+            
+                            // Update WPM (words per minute).
+                            var WPM = Math.round(wordCount  / (timePassed / 60));
+                            document.getElementById("wpm").innerHTML = WPM + "WPM";
+
+                            if (localStorage.getItem("highScore") === null){
+                                localStorage.setItem("highScore",WPM);
+                                console.log('tacos');
+                            }
+                            else if (WPM > localStorage.hasOwnProperty("highScore")) {
+                                localStorage.setItem("highScore",WPM);
+                                document.getElementById("highscore").innerHTML = localStorage.getItem("highScore");
+                            }
+
+                            // Check for the amount of time that has passed.
+                            if (timePassed > 60) {
+                                clearInterval(update);
+
+                                // Update accuracy. 
+                                var missedWords = []
+                                var testWordArray = document.getElementById("test").innerHTML.split(' ');
+                                console.log(testWordArray);
+                                
+                                // Tally the number of correct words and add missed words to an array.
+                                if (wordCount > 1) {
+                                    var inputWordArray = inputString.split(' ');
+                                    for (i = 0; i < (wordCount + 1); i++)
+                                        if (testWordArray[i] == inputWordArray[i]) {
+                                            correctWords++;
+                                        }
+                                        else {
+                                            missedWords.push(testWordArray[i]);
+                                        }
+                                }
+
+                                missedWords.pop();
+                                
+                                // Calculate and display the accuracy.
+                                var accuracy = Math.round(100 * (correctWords / wordCount));
+                                var misspelledLength = document.querySelectorAll('#test .misspelled').length;
+                                var correctLength = document.querySelectorAll('#test .correct').length;
+                                var totalLength = correctLength + misspelledLength;
+                                var accuracy =  Math.round(correctLength/totalLength * 100);
+                                document.getElementById("accuracy").innerHTML = accuracy + "%";
+
+                                window.alert("Congratulations! You typed at a speed of " + WPM + " with an accuracy of " + accuracy + "%.");
+                            }
+
+                        }, 1000);
+
+                    }
+                </script>
+            </div>
+            
         </div>
     </main>
     

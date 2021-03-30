@@ -3,7 +3,7 @@
 @text-font: 'Source Serif Pro', serif;
 @large-text: 3rem;
 @medium-text: 2rem;
-@small-text: 1.7rem;
+@small-text: 1rem;
 @color1: #F4FFFD;
 @color2: #011936;
 @color3: #465362;
@@ -20,28 +20,39 @@ body {
 .header {
     font-family: @header-font;
     font-size: @large-text;
-    text-align: center;
-    background-color: @color5;
+    text-align: left;
+    background-color: @color1;
+    border: 1px solid @color2;
     
     h1 {
         margin-top: 0;
         margin-bottom: 0;
+        font-size: 5rem;
+        padding-left: 1rem;
     }
     h2 {
-        margin:0;
-        font-size:large;
+        position: fixed;
+        right: 10px;
+        top: .75rem;
+        font-size: 2rem;
     }
 }
 .mainblock {
-    background-color: @color4;
+    background-color: @color1;
     font-family: @text-font;
     font-size: @small-text;
     text-align: center;
-    padding: 0rem .5rem 3rem .5rem;
+    display: grid;
+    grid-template-columns: 10% 90%;
+    border-bottom: 1px solid @color2;
 }
 #input {
     font-size: @large-text;
     font-family: @text-font;
+    background-color: @color4;
+    margin-left:5rem;
+    margin-right: 5rem;
+    border: 1px solid @color2;
 }
 .typingtext {
     font-family: @text-font;
@@ -49,21 +60,29 @@ body {
 }
 .stats {
     font-family: @text-font;
-    background-color: @color3;
+    background-color: @color1;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: left;
     align-content: space-around;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    border-right: 1px solid @color2;
+    padding-right: 50px;
+    padding-left: 1rem;
 }
 .item {
     font-size: @small-text;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    color: @color1;
+    padding-left: .25rem;
+    background-color: @color1;
+    color: black;
 
 }
 #test {
     font-size: 1.5rem;
+    margin: 3rem 3rem 3rem 3rem;
+}
+.correct{
+    border-bottom: 3px solid green;
+}
+.misspelled {
+    border-bottom: 3px solid red;
 }
